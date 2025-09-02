@@ -32,18 +32,18 @@ ipcMain.handle("run-scraper", async (event, pages, colorFiltering, responsivenes
     const result = await runScraper(pages, colorFiltering, responsivenesssFiltering, seoFiltering, seoMaximum, performanceFiltering, performanceMaximum, accessibilityFiltering, accessibilityMaximum, bestPracticesFiltering, bestPracticesMaximum, languageFiltering);
     return result;
   } catch (error) {
+    console.error("Error in run-scraper handler:", error);
     return { status: 'error', message: error.message };
   }
 });
 
-
-
-// **This is the missing handler for 'get-results'**
+// This is the missing handler for 'get-results'
 ipcMain.handle("get-results", async () => {
   try {
     const results = await readResults();
     return results;
   } catch (error) {
+    console.error("Error in get-results handler:", error);
     return { status: 'error', message: error.message };
   }
 });
@@ -58,7 +58,7 @@ function createContactWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"), // Ensure this path is correct
     },
-  })
+  });
   if (process.env.NODE_ENV !== "production") {
     contactWindow.webContents.openDevTools();
     contactWindow.loadURL("https://localhost:5173");
@@ -68,8 +68,6 @@ function createContactWindow() {
 }
 
 app.whenReady().then(() => {
-  
-
   createMainWindow();
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
@@ -81,7 +79,7 @@ app.whenReady().then(() => {
   });
 });
 
-const menu = []
+const menu = [];
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -90,7 +88,9 @@ app.on("window-all-closed", () => {
 });
 
 function runScraper(pages, colorFiltering, responsivenesssFiltering, seoFiltering, seoMaximum, performanceFiltering, performanceMaximum, accessibilityFiltering, accessibilityMaximum, bestPracticesFiltering, bestPracticesMaximum, languageFiltering) {
-  const settingsPath = 'C:/Users/Vicenzzz/seo_design_crawler/seo_design_crawler/settings.py';
+  // Use path.join for cross-platform compatibility
+  const settingsPath = path.join(__dirname, 'seo_project', 'seo_project', 'settings.py');
+  
   return new Promise((resolve, reject) => {
     // Validate pages parameter
     const pageCount = parseInt(pages);
@@ -98,105 +98,91 @@ function runScraper(pages, colorFiltering, responsivenesssFiltering, seoFilterin
       reject(new Error(`Invalid page count: ${pageCount}. Must be a positive number.`));
       return;
     }
+    
     try {
+      // Re-implementing the settings writing logic for robustness
       let data = fs.readFileSync(settingsPath, 'utf8');
-      
-      // Log the value being written to the settings file
-      console.log("Writing to settings file, pageCount:", pageCount);
-      
+      const lines = data.split('\n');
+      const settingsMap = new Map();
+
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine && !trimmedLine.startsWith('#')) {
+          const parts = trimmedLine.split('=');
+          if (parts.length === 2) {
+            const key = parts[0].trim();
+            const value = parts[1].trim();
+            settingsMap.set(key, value);
+          }
+        }
+      }
+
       const capitalizeBoolean = (bool) => bool.toString().charAt(0).toUpperCase() + bool.toString().slice(1);
+
+      settingsMap.set('CLOSESPIDER_PAGECOUNT', pageCount);
+      settingsMap.set('COLOR_FILTERING', capitalizeBoolean(colorFiltering));
+      settingsMap.set('RESPONSIVENESS_FILTERING', capitalizeBoolean(responsivenesssFiltering));
+      settingsMap.set('SEO_FILTERING', capitalizeBoolean(seoFiltering));
+      settingsMap.set('PERFORMANCE_FILTERING', capitalizeBoolean(performanceFiltering));
+      settingsMap.set('ACCESSIBILITY_FILTERING', capitalizeBoolean(accessibilityFiltering));
+      settingsMap.set('BEST_PRACTICES_FILTERING', capitalizeBoolean(bestPracticesFiltering));
+      settingsMap.set('LANGUAGE_FILTERING', `'${languageFiltering}'`);
+
+      if (seoFiltering) settingsMap.set('SEO_MAXIMUM', seoMaximum);
+      else settingsMap.delete('SEO_MAXIMUM');
       
-      const pageCountSetting = `CLOSESPIDER_PAGECOUNT = ${pageCount}`;
-      const colorFilteringSetting = `COLOR_FILTERING = ${capitalizeBoolean(colorFiltering)}`;
-      const responsivenesssFilteringSetting = `RESPONSIVENESS_FILTERING = ${capitalizeBoolean(responsivenesssFiltering)}`;
-      const seoFilteringSetting = `SEO_FILTERING = ${seoFiltering}`;
-      const seoMaximumSetting = `SEO_MAXIMUM = ${seoMaximum}`;
-      const performanceFilteringSetting = `PERFORMANCE_FILTERING = ${performanceFiltering}`;
-      const performanceMaximumSetting  = `PERFORMANCE_MAXIMUM = ${performanceMaximum}`;
-      const accessibilityFilteringSetting = `ACCESSIBILITY_FILTERING = ${accessibilityFiltering}`;
-      const accessibilityMaximumSetting = `ACCESSIBILITY_MAXIMUM = ${accessibilityMaximum}`;
-      const bestPracticesFilteringSetting = `BEST_PRACTICES_FILTERING = ${bestPracticesFiltering}`;
-      const bestPracticesMaximumSetting = `BEST_PRACTICES_MAXIMUM = ${bestPracticesMaximum}`;
-      const languageFilteringSetting = `LANGUAGE_FILTERING = ${languageFiltering}`;
+      if (performanceFiltering) settingsMap.set('PERFORMANCE_MAXIMUM', performanceMaximum);
+      else settingsMap.delete('PERFORMANCE_MAXIMUM');
       
+      if (accessibilityFiltering) settingsMap.set('ACCESSIBILITY_MAXIMUM', accessibilityMaximum);
+      else settingsMap.delete('ACCESSIBILITY_MAXIMUM');
       
-      if (data.includes('CLOSESPIDER_PAGECOUNT')) {
-        data = data.replace(/CLOSESPIDER_PAGECOUNT\s*=\s*[^\n]*/g, pageCountSetting);
-      } else {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + pageCountSetting
-        );
+      if (bestPracticesFiltering) settingsMap.set('BEST_PRACTICES_MAXIMUM', bestPracticesMaximum);
+      else settingsMap.delete('BEST_PRACTICES_MAXIMUM');
+
+      let newSettingsContent = '';
+      let addedCustomSettings = false;
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine && !trimmedLine.startsWith('#')) {
+          const key = trimmedLine.split('=')[0].trim();
+          if (settingsMap.has(key)) {
+            newSettingsContent += `${key} = ${settingsMap.get(key)}\n`;
+            settingsMap.delete(key);
+          } else {
+            newSettingsContent += line + '\n';
+          }
+        } else {
+            if (trimmedLine !== '') newSettingsContent += line + '\n';
+        }
+
+        if (!addedCustomSettings && trimmedLine === 'BOT_NAME = "seo_project"') {
+          newSettingsContent += '\n# Custom Lupy Settings\n';
+          addedCustomSettings = true;
+        }
       }
 
-      if (data.includes('COLOR_FILTERING')) {
-        data = data.replace(/COLOR_FILTERING\s*=\s*[^\n]*/g, colorFilteringSetting);
-      } else {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + colorFilteringSetting
-        );
+      for (const [key, value] of settingsMap) {
+        newSettingsContent += `${key} = ${value}\n`;
       }
 
-      if (data.includes('RESPONSIVENESS_FILTERING')) {
-        data = data.replace(/RESPONSIVENESS_FILTERING\s*=\s*[^\n]*/g, responsivenesssFilteringSetting);
-      } else {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + responsivenesssFilteringSetting
-        );
-      }
+      fs.writeFileSync(settingsPath, newSettingsContent, 'utf8');
 
-      if (data.includes('SEO_MAXIMUM') && seoFiltering) {
-        data = data.replace(/SEO_MAXIMUM\s*=\s*[^\n]*/g, seoMaximumSetting);
-      } else if (seoFiltering) {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + seoMaximumSetting
-        );
-      } else if (data.includes('SEO_MAXIMUM') && !seoFiltering) {
-        data = data.replace(/SEO_MAXIMUM\s*=\s*[^\n]*/g, '');
-      }
-
-      if (data.includes('PERFORMANCE_MAXIMUM') && performanceFiltering) {
-        data = data.replace(/PERFORMANCE_MAXIMUM\s*=\s*[^\n]*/g, performanceMaximumSetting);
-      } else if (performanceFiltering) {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + performanceMaximumSetting
-        );
-      } else if (data.includes('PERFORMANCE_MAXIMUM') && !performanceFiltering) {
-        data = data.replace(/PERFORMANCE_MAXIMUM\s*=\s*[^\n]*/g, '');
-      }
-
-      if (data.includes('ACCESSIBILITY_MAXIMUM') && accessibilityFiltering) {
-        data = data.replace(/ACCESSIBILITY_MAXIMUM\s*=\s*[^\n]*/g, accessibilityMaximumSetting);
-      } else if (accessibilityFiltering) {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + accessibilityMaximumSetting
-        );
-      } else if (data.includes('ACCESSIBILITY_MAXIMUM') && !accessibilityFiltering) {
-        data = data.replace(/ACCESSIBILITY_MAXIMUM\s*=\s*[^\n]*/g, '');
-      }
-
-      if (data.includes('BEST_PRACTICES_MAXIMUM') && bestPracticesFiltering) {
-        data = data.replace(/BEST_PRACTICES_MAXIMUM\s*=\s*[^\n]*/g, bestPracticesMaximumSetting);
-      } else if (bestPracticesFiltering) {
-        data = data.replace(
-          'BOT_NAME = "seo_design_crawler"',
-          'BOT_NAME = "seo_design_crawler"\n\n' + bestPracticesMaximumSetting
-        );
-      } else if (data.includes('BEST_PRACTICES_MAXIMUM') && !bestPracticesFiltering) {
-        data = data.replace(/BEST_PRACTICES_MAXIMUM\s*=\s*[^\n]*/g, '');
-      }
-
-      fs.writeFileSync(settingsPath, data, 'utf8');
-
-      // Rest of your scraper code...
-      const scraper = spawn('scrapy', ['crawl', 'seo_design_spider'], { 
-        cwd: "C:/Users/Vicenzzz/seo_design_crawler" 
+      // Adjusting paths for Linux
+      const scrapyCwd = path.join(__dirname, "seo_project");
+      const venvPath = path.join(__dirname, "venv");
+      const pythonPath = path.join(venvPath, "bin", "python");
+      const scrapyPath = path.join(venvPath, "bin", "scrapy");
+      
+      const scraper = spawn(pythonPath, [scrapyPath, 'crawl', 'seo_design_spider'], { 
+        cwd: scrapyCwd 
       });
+
+      scraper.on('error', (err) => {
+        console.error(`Failed to start subprocess: ${err}`);
+        reject(new Error(`Failed to start the scraper. Please check your venv paths. Error: ${err.message}`));
+      });
+      
       scraper.stdout.on('data', (data) => {
         console.log(`Scraper output: ${data}`);
       });
@@ -209,27 +195,24 @@ function runScraper(pages, colorFiltering, responsivenesssFiltering, seoFilterin
         const resultsReady = new Notification({
           title: "your results are ready",
           body: "they are pretty interesting."
-        })
+        });
         if (code === 0) {
           resolve({ status: 'success', message: 'Scraper finished successfully.' });
-          resultsReady.show()
+          resultsReady.show();
         } else {
           reject(new Error('Scraper failed.'));
-          resultsReady.show()
+          resultsReady.show();
         }
       });
-
-      // add language filtering
-
     } catch (error) {
-      reject(new Error(`Failed to update settings file: ${error.message}`));
+      reject(new Error(`Failed to update settings file or start scraper: ${error.message}`));
     }
   });
 }
 
 // Function to read the scraper results from results.json
 function readResults() {
-  const resultsFilePath = path.join("C:/Users/Vicenzzz/seo_design_crawler", "results.json");
+  const resultsFilePath = path.join(__dirname, "seo_project", "results.json");
 
   return new Promise((resolve, reject) => {
     fs.readFile(resultsFilePath, "utf-8", (err, data) => {
