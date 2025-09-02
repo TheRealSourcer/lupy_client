@@ -52,14 +52,14 @@
       <!-- Form section -->
       <div class="p-4 bg-github-gray-background border border-github-black-border">
           <form class="space-y-4">
-              <div class="flex flex-col">
+              <div class="flex flex-col space-y-2">
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="pageAmount">Number of Pages:</label>
                       <input 
                           type="number" 
                           v-model.number="pagesAmount" 
                           min="1"
-                          class="p-1 rounded"
+                          class="p-1 rounded w-full"
+                          placeholder="Pages to scrape..."
                       >
                   </div>
                   <div class="flex space-x-2">
@@ -81,11 +81,11 @@
                       </div>
                   </div>
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="seoFiltering">SEO filtering:</label>
                       <input 
                           type="checkbox" 
                           v-model.number="seoFiltering"
                           class="w-6 rounded"
+                          placeholder="SEO threshold"
                       >
                       <input 
                           type="number" 
@@ -132,18 +132,12 @@
                           class="p-1 rounded"
                       >
                   </div>
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="languageFiltering">Language filtering:</label>
-                      <input 
-                          type="text" 
-                          class="p-1 rounded"
-                      >
-                  </div>
+                  <input type="text" class="p-1 rounded min-w-100" placeholder="Language filtering">
               </div>
               <button 
                   @click.prevent="startScraper" 
                   class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-              >
+                >
                   Start Scraper
               </button>
           </form>

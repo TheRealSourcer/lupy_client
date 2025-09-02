@@ -17,6 +17,8 @@ BOT_NAME = "seo_project"
 # Custom Lupy Settings
 # Custom Lupy Settings
 # Custom Lupy Settings
+# Custom Lupy Settings
+# Custom Lupy Settings
 SPIDER_MODULES = ["seo_project.spiders"]
 NEWSPIDER_MODULE = "seo_project.spiders"
 ADDONS = {}
@@ -34,7 +36,7 @@ FEEDS = {
 ROBOTSTXT_OBEY = True
 # Concurrency and throttling settings
 #CONCURRENT_REQUESTS = 16
-CONCURRENT_REQUESTS_PER_DOMAIN = 1
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
 DOWNLOAD_DELAY = 1
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -94,7 +96,7 @@ PERFORMANCE_FILTERING = True
 ACCESSIBILITY_FILTERING = True
 BEST_PRACTICES_FILTERING = True
 LANGUAGE_FILTERING = 'undefined'
-SEO_MAXIMUM = 100
-PERFORMANCE_MAXIMUM = 100
-ACCESSIBILITY_MAXIMUM = 100
-BEST_PRACTICES_MAXIMUM = 100
+SEO_MAXIMUM = 30
+PERFORMANCE_MAXIMUM = 30
+ACCESSIBILITY_MAXIMUM = 30
+BEST_PRACTICES_MAXIMUM = 30

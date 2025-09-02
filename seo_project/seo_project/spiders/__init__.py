@@ -39,11 +39,8 @@ class SEODesignSpider(CrawlSpider):
     # File to persist visited domains
     visited_domains_file = 'visited_domains.json'
     
-    # Path to ChromeDriver
-    chrome_driver_path = '/path/to/chromedriver'  # Update this path
-    
     # PageSpeed Insights API key
-    pagespeed_api_key = 'AIzaSyCxnUtUZISBRDydEI4iZDeN-N_wojTJa7M'  # Replace with your API key
+    pagespeed_api_key = os.environ.get('PAGESPEED_KEY')
     
     def __init__(self, *args, **kwargs):
         super(SEODesignSpider, self).__init__(*args, **kwargs)
