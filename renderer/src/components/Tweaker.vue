@@ -2,9 +2,6 @@
   <div class="flex flex-col h-screen max-h-screen text-white text-base">
       <!-- Navigation section -->
        <div class="flex w-full bg-github-lightgray-background">
-            <router-link to="/" class="flex flex-1 justify-center px-4 py-2 border border-github-black-border" :class="[isActiveLink('/') ? 'border-b-4 border-b-github-blue-border/background' : '']">
-                <div>Graphs</div>
-            </router-link>
             <router-link to="/website/about:blank" class="flex flex-1 justify-center px-4 py-2 border border-github-black-border" :class="[isActiveLink('/website/about:blank') ? 'border-b-4 border-b-github-blue-border/background' : '']">
                 <div>Website</div>
             </router-link>
