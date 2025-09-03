@@ -48,7 +48,7 @@
 
       <!-- Form section -->
       <div class="p-4 bg-github-gray-background border border-github-black-border">
-        <h2 class="mb-6 text-xl font-bold">Tweaker:</h2>
+        <h2 class="mb-6 text-7xl font-bold">Tweaker:</h2>
           <form class="space-y-4">
               <div class="flex flex-col space-y-2">
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">

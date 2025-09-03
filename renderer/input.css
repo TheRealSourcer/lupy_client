@@ -1,71 +1,143 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-* {
-  box-sizing: border-box;
-  color: rgb(255, 255, 255);
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-github-background: #24292e;
+  --color-github-dark-background: #1d2125;
+  --color-github-black-border: #141414;
+  --color-github-gray-background: #2b3137;
+  --color-github-lightgray-background: #2f363d;
+  --color-github-gray-border: #717b85;
+  --color-github-gray-text: #959da5;
+  --color-github-gray-scrollbar: #505458;
+  --color-github-lightgray-scrollbar: #929497;
+  --color-github-blue-border\/background: #0366d6;
+  --color-github-blue-text: #2882f2;
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-body {
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer utilities {
+  * {
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+  }
+
+  body {
     display: flex;
     height: 100vh;
     background-color: #24292e;
-    
-}
+  }
 
-/* width */
-::-webkit-scrollbar {
+  /* width */
+  ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
-}
-  
+  }
+
   /* Track */
-::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track {
     background: #24292e;
-}
-  
+  }
+
   /* Handle */
-::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background: #505458;
     border-radius: 5px;
-}
-  
+  }
+
   /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+  ::-webkit-scrollbar-thumb:hover {
     background: #929497;
-}
+  }
 
-input {
-  background-color: #1d2125;
-  border: 1px solid #717b85;
-  border-radius: 0.25rem;
-  padding: 0.25rem;
-}
+  input {
+    background-color: #1d2125;
+    border: 1px solid #717b85;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+  }
 
-textarea {
-  background-color: #1d2125;
-  border: 1px solid #717b85;
-  border-radius: 0.25rem;
-  padding: 0.25rem;
-}
+  textarea {
+    background-color: #1d2125;
+    border: 1px solid #717b85;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+  }
 
-
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
-}
+    margin: 0;
+  }
 
-textarea:focus, input:focus{
+  textarea:focus,
+  input:focus {
     outline: none;
     border: 1px solid #0366d6;
-}
+  }
 
-p {
+  p {
     vertical-align: baseline;
+  }
 }
 
 @layer base {
