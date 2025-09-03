@@ -1,7 +1,7 @@
 <template>
     <webview 
       :src="url" 
-      class="w-full h-full"
+      class="w-full min-h-full"
       allowpopups
     ></webview>
   </template>
