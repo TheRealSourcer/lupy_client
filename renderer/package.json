@@ -5,13 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "watch": "tailwindcss -i ./input.css -o ./css/output.css --watch",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
     "@lottiefiles/lottie-player": "^2.0.11",
+    "@tailwindcss/vite": "^4.1.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.454.0",
