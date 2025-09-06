@@ -1,3 +1,5 @@
 #!/bin/bash
-cd renderer && npm run dev &
-electron .
+
+concurrently \
+  "cd renderer && npm run dev" \
+  "wait-on http://localhost:5173 && electron ."
