@@ -7,7 +7,6 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 BOT_NAME = "seo_project"
-
 # Custom Lupy Settings
 SPIDER_MODULES = ["seo_project.spiders"]
 NEWSPIDER_MODULE = "seo_project.spiders"
@@ -78,7 +77,7 @@ DOWNLOAD_DELAY = 1
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
-CLOSESPIDER_PAGECOUNT = 10
+CLOSESPIDER_PAGECOUNT = 1
 COLOR_FILTERING = False
 RESPONSIVENESS_FILTERING = False
 SEO_FILTERING = True

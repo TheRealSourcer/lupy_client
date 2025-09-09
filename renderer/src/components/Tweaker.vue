@@ -21,13 +21,6 @@
               >
                   <p>No results yet. Run the scraper to see results.</p>
               </div>
-            
-              <div 
-                  v-if="scraping" 
-                  class="absolute inset-0 flex items-center justify-center"
-              >
-                  <lottie-player :src="animationData" autoplay loop class="w-75"/>
-              </div>
       
               <div 
                   v-if="results.length > 0" 
@@ -48,7 +41,16 @@
 
       <!-- Form section -->
       <div class="p-4 bg-github-gray-background border border-github-black-border">
-        <h2 class="mb-4 text-2xl font-bold">Tweaker:</h2>
+        <div class="flex flex-row justify-between">
+            <h2 class="mb-4 text-2xl font-bold">Tweaker:</h2>
+            <v-progress-circular
+                v-if="scraping"
+                indeterminate
+                color="primary"
+                size="26"
+                class="mt-1 mr-1"
+             ></v-progress-circular>
+        </div>    
           <form class="space-y-4">
               <div class="flex flex-col space-y-2">
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">
