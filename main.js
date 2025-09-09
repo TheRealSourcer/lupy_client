@@ -157,7 +157,6 @@ function runScraper(pages, colorFiltering, responsivenesssFiltering, seoFilterin
         }
 
         if (!addedCustomSettings && trimmedLine === 'BOT_NAME = "seo_project"') {
-          newSettingsContent += '\n# Custom Lupy Settings\n';
           addedCustomSettings = true;
         }
       }

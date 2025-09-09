@@ -9,20 +9,6 @@
 BOT_NAME = "seo_project"
 
 # Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
-# Custom Lupy Settings
 SPIDER_MODULES = ["seo_project.spiders"]
 NEWSPIDER_MODULE = "seo_project.spiders"
 ADDONS = {}
