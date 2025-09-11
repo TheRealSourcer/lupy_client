@@ -43,28 +43,38 @@
       <div class="p-4 bg-github-gray-background border border-github-black-border">
         <div class="flex flex-row justify-between">
             <h2 class="mb-4 text-2xl font-bold">Tweaker:</h2>
-            <v-progress-circular
-                v-if="scraping"
-                indeterminate
-                color="primary"
-                size="26"
-                class="mt-1 mr-1"
-             ></v-progress-circular>
-        </div>    
+            <div class="flex">
+                <v-progress-circular
+                    v-if="scraping"
+                    indeterminate
+                    color="primary"
+                    size="26"
+                    class="mt-1 mr-3"
+                ></v-progress-circular>
+                <div class="flex items-center bg-github-dark-background rounded border-2 border-github-gray-border py-0 h-10">
+                
+                    <div class="bg-github-gray-background h-full flex items-center px-2 border-r-2 border-github-gray-border">
+                        #
+                    </div>
+                    <input 
+                        type="number" 
+                        v-model.number="pagesAmount" 
+                        min="1"
+                        class="py-1 px-2 rounded w-12 border-none focus:border-none"
+                        placeholder=""
+                    >
+                    </div>
+                </div>
+            </div>    
           <form class="space-y-4">
               <div class="flex flex-col space-y-2">
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <input 
-                          type="number" 
-                          v-model.number="pagesAmount" 
-                          min="1"
-                          class="p-1 rounded w-full"
-                          placeholder="Pages to scrape..."
-                      >
+                      
                   </div>
-                  <div class="flex space-x-2">
+                  <h2  class="font-bold text-lg">Filters:</h2>
+                  <div class="flex space-x-2 w-full">
                       <div class="w-1/3 space-y-2 flex space-x-2 items-baseline">
-                          <label class="text-sm truncate flex-1" for="colorFiltering" title="Color filtering">Color filtering:</label>
+                          <label class="text-sm text-nowrap flex" for="colorFiltering" title="Color filtering">Color:</label>
                           <input 
                               type="checkbox" 
                               v-model="colorFiltering" 
@@ -72,7 +82,7 @@
                           >
                       </div>
                       <div class="w-1/3 space-y-2 flex space-x-2 items-baseline">
-                          <label class="text-sm truncate flex-1" for="responsivnessFiltering" title="Responsiveness filtering">Responsiveness filtering:</label>
+                          <label class="text-sm text-nowrap flex" for="responsivnessFiltering" title="Responsiveness filtering">Responsiveness:</label>
                           <input 
                               type="checkbox" 
                               v-model="responsivenessFiltering"
@@ -81,6 +91,7 @@
                       </div>
                   </div>
                   <div class="space-y-2 flex space-x-2 items-baseline justify-between">
+                      <label class="text-sm truncate" for="performanceFiltering">SEO Max:</label>
                       <input 
                           type="checkbox" 
                           v-model.number="seoFiltering"
@@ -134,8 +145,15 @@
                   </div>
               </div>
               <button 
-                  @click.prevent="startScraper" 
+                  @click.prevent="startScraper"
+                  v-if="!scraping"
                   class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                >
+                  Start Scraper
+              </button>
+              <button 
+                  v-if="scraping"
+                  class="w-full bg-blue-950 text-gray-400 px-4 py-2 rounded"
                 >
                   Start Scraper
               </button>
