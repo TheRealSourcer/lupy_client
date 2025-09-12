@@ -68,80 +68,90 @@
             </div>    
           <form class="space-y-4">
               <div class="flex flex-col space-y-2">
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      
-                  </div>
+                  
                   <h2  class="font-bold text-lg">Filters:</h2>
-                  <div class="flex space-x-2 w-full">
-                      <div class="w-1/3 space-y-2 flex space-x-2 items-baseline">
-                          <label class="text-sm text-nowrap flex" for="colorFiltering" title="Color filtering">Color:</label>
+                  <div class="flex space-x-4 w-full">
+                      <div class="items-center rounded py-0 h-10 flex-1 flex flex-row space-x-4">
+                          <label class="bg-github-gray-background h-full flex items-center px-2 rounded border-2 border-github-gray-border text-nowrap flex-3" for="colorFiltering" title="Color filtering">Color:</label>
                           <input 
                               type="checkbox" 
                               v-model="colorFiltering" 
-                              class="w-6 rounded flex-none"
+                              class="rounded min-h-full flex-1"
                           >
                       </div>
-                      <div class="w-1/3 space-y-2 flex space-x-2 items-baseline">
-                          <label class="text-sm text-nowrap flex" for="responsivnessFiltering" title="Responsiveness filtering">Responsiveness:</label>
+                      <div class="rounded-xl min-w-px min-h-4 bg-github-gray-text space-x-4"></div>
+                      <div class="items-center rounded py-0 h-10 flex-1 flex flex-row space-x-4">
+                          <label class="bg-github-gray-background h-full flex items-center px-2 rounded border-2 border-github-gray-border text-nowrap flex-3" for="responsivnessFiltering" title="Responsiveness filtering">Responsive:</label>
                           <input 
                               type="checkbox" 
                               v-model="responsivenessFiltering"
-                              class="w-6 rounded flex-none"
+                              class="rounded min-h-full flex-1"
                           >
                       </div>
                   </div>
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="performanceFiltering">SEO Max:</label>
-                      <input 
-                          type="checkbox" 
-                          v-model.number="seoFiltering"
-                          class="w-6 rounded"
-                          placeholder="SEO threshold"
-                      >
-                      <input 
+                  <div class="flex flex-row space-x-4">
+                    <div class="flex flex-10 items-center bg-github-dark-background rounded border-2 border-github-gray-border py-0 h-10">
+                        <label class="bg-github-gray-background h-full flex items-center px-2 border-r-2 border-github-gray-border text-nowrap" for="performanceFiltering">SEO Max:</label>
+                        <input 
                           type="number" 
                           v-model.number="seoMaximum"
-                          class="p-1 rounded"
-                      >
-                  </div>
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="performanceFiltering">Performance Max:</label>
-                      <input 
+                          class="py-1 px-2 rounded w-12 border-none focus:border-none"
+                        >
+                    </div>
+                    <input 
                           type="checkbox" 
-                          v-model.number="performanceFiltering"
-                          class="w-6 rounded"
-                      >
-                      <input 
+                          v-model.number="seoFiltering"
+                          class="w-6 rounded flex-1"
+                          placeholder="SEO threshold"
+                    >
+                  </div>
+                  <div class="flex flex-row space-x-4">
+                    <div class="flex flex-10 items-center bg-github-dark-background rounded border-2 border-github-gray-border py-0 h-10">
+                        <label class="bg-github-gray-background h-full flex items-center px-2 border-r-2 border-github-gray-border text-nowrap" for="performanceFiltering">Performance Max:</label>
+                        <input 
                           type="number" 
                           v-model.number="performanceMaximum"
-                          class="p-1 rounded"
-                      >
-                  </div>
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="accessibilityFiltering">Accessibility filtering:</label>
-                      <input 
+                          class="py-1 px-2 rounded w-12 border-none focus:border-none"
+                        >
+                    </div>
+                    <input 
                           type="checkbox" 
-                          v-model.number="accessibilityFiltering"
-                          class="w-6 rounded"
-                      >
-                      <input 
+                          v-model.number="performanceFiltering"
+                          class="w-6 rounded flex-1"
+                          placeholder="SEO threshold"
+                    >
+                  </div>
+                  <div class="flex flex-row space-x-4">
+                    <div class="flex flex-10 items-center bg-github-dark-background rounded border-2 border-github-gray-border py-0 h-10">
+                        <label class="bg-github-gray-background h-full flex items-center px-2 border-r-2 border-github-gray-border text-nowrap" for="performanceFiltering">Accessibility Max:</label>
+                        <input 
                           type="number" 
                           v-model.number="accessibilityMaximum"
-                          class="p-1 rounded"
-                      >
-                  </div>
-                  <div class="space-y-2 flex space-x-2 items-baseline justify-between">
-                      <label class="text-sm truncate" for="accessibilityFiltering">Best Practices filtering:</label>
-                      <input 
+                          class="py-1 px-2 rounded w-12 border-none focus:border-none"
+                        >
+                    </div>
+                    <input 
                           type="checkbox" 
-                          v-model.number="bestPracticesFiltering"
-                          class="w-6 rounded"
-                      >
-                      <input 
+                          v-model.number="accessibilityFiltering"
+                          class="w-6 rounded flex-1"
+                          placeholder="SEO threshold"
+                    >
+                  </div>
+                  <div class="flex flex-row space-x-4">
+                    <div class="flex flex-10 items-center bg-github-dark-background rounded border-2 border-github-gray-border py-0 h-10">
+                        <label class="bg-github-gray-background h-full flex items-center px-2 border-r-2 border-github-gray-border text-nowrap" for="performanceFiltering">Best Practices Max:</label>
+                        <input 
                           type="number" 
                           v-model.number="bestPracticesMaximum"
-                          class="p-1 rounded"
-                      >
+                          class="py-1 px-2 rounded w-12 border-none focus:border-none"
+                        >
+                    </div>
+                    <input 
+                          type="checkbox" 
+                          v-model.number="bestPracticesFiltering"
+                          class="w-6 rounded flex-1"
+                          placeholder="SEO threshold"
+                    >
                   </div>
               </div>
               <button 
