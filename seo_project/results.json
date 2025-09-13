@@ -1,4 +1,5 @@
 [
-{"url": "http://www.iana.org/help/example-domains", "issues": ["Poor SEO and/or Design"]},
-{"url": "https://www.icann.org/en/data-protection/terms-of-service", "issues": ["Poor SEO and/or Design"]}
+{"url": "https://business.parkschamber.com/chamber-member-directory", "emails": ["info@ParksChamber.com"], "issues": ["Poor SEO and/or Design"]},
+{"url": "https://apps.apple.com/us/app/craigslist/id1336642410", "emails": ["yanflex@gmail.com", "support@freebiealerts.app", "ebay-motors-feedback@ebay.com", "yardsaletreasuremap@gmail.com", "feedback@autolist.com", "car@ebay.com"], "issues": ["Poor SEO and/or Design"]},
+{"url": "https://play.google.com/store/apps/details?id=org.craigslist.CraigslistMobile", "emails": ["help@craigslist.org"], "issues": ["Poor SEO and/or Design"]}
 ]

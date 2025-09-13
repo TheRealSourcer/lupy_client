@@ -77,7 +77,7 @@ DOWNLOAD_DELAY = 1
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
-CLOSESPIDER_PAGECOUNT = 1
+CLOSESPIDER_PAGECOUNT = 100
 COLOR_FILTERING = False
 RESPONSIVENESS_FILTERING = False
 SEO_FILTERING = True

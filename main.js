@@ -173,7 +173,7 @@ function runScraper(pages, colorFiltering, responsivenesssFiltering, seoFilterin
       const pythonPath = path.join(venvPath, "bin", "python");
       const scrapyPath = path.join(venvPath, "bin", "scrapy");
       
-      const scraper = spawn(pythonPath, [scrapyPath, 'crawl', 'seo_design_spider'], { 
+      const scraper = spawn(pythonPath, [scrapyPath, 'crawl', 'seo_design_spider', "-O", "results.json"], { 
         cwd: scrapyCwd 
       });
 
