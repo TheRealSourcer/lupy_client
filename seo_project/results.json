@@ -1,5 +1,23 @@
 [
-{"url": "https://business.parkschamber.com/chamber-member-directory", "emails": ["info@ParksChamber.com"], "issues": ["Poor SEO and/or Design"]},
-{"url": "https://apps.apple.com/us/app/craigslist/id1336642410", "emails": ["yanflex@gmail.com", "support@freebiealerts.app", "ebay-motors-feedback@ebay.com", "yardsaletreasuremap@gmail.com", "feedback@autolist.com", "car@ebay.com"], "issues": ["Poor SEO and/or Design"]},
-{"url": "https://play.google.com/store/apps/details?id=org.craigslist.CraigslistMobile", "emails": ["help@craigslist.org"], "issues": ["Poor SEO and/or Design"]}
+  {
+    "url": "https://www.craigslistfund.org/",
+    "emails": [
+      "user@domain.com"
+    ],
+    "issues": [
+      "Poor SEO and/or Design"
+    ]
+  },
+  {
+    "url": "https://archive.org/details/americangenocide0000madl",
+    "emails": [
+      "associate-jovert-ortega@archive.org",
+      "charleshorn@archive.org",
+      "associate-jessa-lubiano@archive.org",
+      "station53.cebu@archive.org"
+    ],
+    "issues": [
+      "Poor SEO and/or Design"
+    ]
+  }
 ]

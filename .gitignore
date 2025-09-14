@@ -1,2 +1,4 @@
 node_modules
 .env
+lhci_reports
+old_python.txt
