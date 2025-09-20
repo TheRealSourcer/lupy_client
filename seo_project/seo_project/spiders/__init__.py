@@ -37,6 +37,11 @@ class SEODesignSpider(scrapy.Spider):
         os.makedirs(REPORT_DIR, exist_ok=True)
         final_results = []
 
+        seo_max = self.settings.get("SEO_MAXIMUM")
+        performance_max = self.settings.get("PERFORMANCE_MAXIMUM")
+        accessibility_max = self.settings.get("ACCESSIBILITY_MAXIMUM")
+        best_practices_max = self.settings.get("BEST_PRACTICES_MAXIMUM")
+
         for url, data in self.results.items():
             filename = f"lhr-{abs(hash(url))}.json"
             filepath = os.path.join(REPORT_DIR, filename)
@@ -65,7 +70,7 @@ class SEODesignSpider(scrapy.Spider):
                     "seo": report['categories']['seo']['score'],
                 }
 
-                if (all(score < 80 for score in scores.values()) or any(score < 50 for score in scores.values())):
+                if ((scores["seo"] <= seo_max and scores["best-practices"] <= best_practices_max and scores["accessibility"] <= accessibility_max and scores["performance"] < performance_max) or any(score < 50 for score in scores.values())):
                     data["issues"].append({
                         "accessibility": scores["accessibility"],
                         "performance": scores["performance"],
