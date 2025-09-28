@@ -13,7 +13,7 @@
                     <textarea name="" id="" placeholder="Type / to insert files and more" class="block border-transparent h-72 bg-github-background" v-model="mailForm.text"></textarea>
                 </div>
                 <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-                    Send
+                    Send Email
                 </button>
             </form>
         </div>
