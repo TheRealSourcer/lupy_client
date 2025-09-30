@@ -12,7 +12,7 @@
                     <input class="border-t-0 border-x-0 bg-github-background border-b-github-gray-border border-b-2 rounded-none focus:border-0 focus:border-b-2" type="text" placeholder="Subject" v-model="mailForm.subject">
                     <textarea name="" id="" placeholder="Type / to insert files and more" class="block border-transparent h-72 bg-github-background" v-model="mailForm.text"></textarea>
                 </div>
-                <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors font-semibold">
                     Send Email
                 </button>
             </form>
